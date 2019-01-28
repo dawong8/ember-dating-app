@@ -11,6 +11,7 @@ require('./db/db');
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use('/user', userController)
 
 app.get('/', (req, res) => {
 	res.render('index.ejs');
