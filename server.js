@@ -1,11 +1,10 @@
-const express = require('express'); 
+const express = require('express');
 
-const app = express(); 
+const app = express();
 
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const photosController = require('./controllers/photosController');
-const photographerController = require('./controllers/photographerController');
+const userController = require('./controllers/userController');
 
 require('./db/db');
 
