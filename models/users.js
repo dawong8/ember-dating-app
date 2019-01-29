@@ -5,9 +5,10 @@ userSchema.add({
   username: String,
   password: String, 
   name: String, 
+  about: String,
   age: Number, 
   gender: String, 
-  userPreference: [ userSchema ], 
+  userPreference: [ userSchema ],  // minUser, maxUser
   preferredDates: [ String ], //dates type stored as Strings 
   picture: String, 
   likedUsers: [ userSchema ]

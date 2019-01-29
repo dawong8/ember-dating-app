@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> User Index</title>
+	<title> Temporary Page </title>
 </head>
 <body>
+	<p> this is a temporary page</p>
+	<% for (let a = 0; a < user.length; a++) { %>
+		Name: <a href="/user/<%=user[a]._id%>/profile"> <%= user[a].name%> </a> 
+		Age: <%= user[a].age%>
+		About: <%= user[a].about%>
+		Gender: <%= user[a].gender%>
+		Preferred Dates: 
+		<%	for (let b = 0; b < user[a].preferredDates.length; b++) {%>
+			<%= user[a].preferredDates[b]%>
+			<br>
+		<%	} %>
+		<br>
+	<%}%>
 
+
+	<p> create user</p>
+	<form action="/user" method="POST">
+		name <input type="text" name="name"> <br>
+		gender <input type="text" name="gender"> <br>
+		about <input type="text" name="about"> <br>
+		age <input type="number" name="age"> <br>
+
+		<button type="submit"> create user </button>
+	</form>
 </body>
 </html>
