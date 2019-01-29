@@ -4,13 +4,13 @@
 	<title> Preferences </title>
 </head>
 <body>
-	<form action="/user/<%= user.id %>?_method=PUT" method="POST">
+	<form action="/user/preferences/<%= user.id %>?_method=PUT" method="POST">
 		<input type="checkbox" name="preferredDates" value="dinner"> dinner <br>
 		<input type="checkbox" name="preferredDates" value="movie"> movie <br>		
 		<input type="checkbox" name="preferredDates" value="hiking"> hiking <br>		
 		<input type="checkbox" name="preferredDates" value="shopping"> shopping <br>		
 
-		<button input="submit"> <a href="/user/<%= user.id%>/looking">Ready?</a> </button>
+		<button input="submit">Ready? </button>
 		
 	</form>
 </body>

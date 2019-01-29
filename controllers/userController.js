@@ -44,15 +44,6 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
-router.put('/looking/:id', async (req, res) => {
-	try {
-		const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
-
-		res.redirect(`/user/${req.params.id}/preferences`);
-	} catch (err) {
-		res.send(err); 
-	}
-});
 
 
 
@@ -71,6 +62,20 @@ router.get('/:id/preferences', async (req, res) => {
 });
 
 
+router.put('/preferences/:id', async (req, res) => {
+	try {
+		const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
+
+		res.redirect(`/user/${req.params.id}/looking`);
+	} catch (err) {
+		res.send(err); 
+	}
+});
+
+
+
+
+
 
 router.get('/:id/looking', async (req, res) => {
 	try {
@@ -82,6 +87,20 @@ router.get('/:id/looking', async (req, res) => {
 		res.send(err); 
 	}
 });
+
+
+router.put('/looking/:id', async (req, res) => {
+	try {
+
+		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
+
+
+		res.redirect(`/user`);
+	} catch (err) {
+		res.send(err); 
+	}
+});
+
 
 
 // create user 

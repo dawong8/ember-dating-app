@@ -8,7 +8,10 @@ userSchema.add({
   about: String,
   age: Number, 
   gender: String, 
-  userPreference: [ userSchema ],  // minUser, maxUser
+  // userPreference: [ userSchema ],  // minUser, maxUser
+  minAge: Number, 
+  maxAge: Number, 
+  preferredGender: String, 
   preferredDates: [ String ], //dates type stored as Strings 
   picture: String, 
   likedUsers: [ userSchema ]
