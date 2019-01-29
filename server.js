@@ -30,6 +30,10 @@ app.get('/preferences', (req, res) => {
 	res.render('users/preferences.ejs')
 });
 
+app.get('/login', (req, res) => {
+	res.render('users/login.ejs')
+})
+
 
 app.listen(3000, () => {
 	console.log('app is listening');
