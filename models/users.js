@@ -11,10 +11,9 @@ userSchema.add({
   preferredDates: [ String ],
   picture: String,
   about: String,
-  minAge: Number, 
-  maxAge: Number, 
+  minAge: Number,
+  maxAge: Number,
   preferredGender: String,
-
   likedUsers: [ userSchema ]
 });
 
