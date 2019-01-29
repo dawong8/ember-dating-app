@@ -8,12 +8,13 @@ userSchema.add({
   name: String,
   age: Number,
   gender: String,
-  userPreference: [ userSchema ],
-  preferredDates: [ String ], //dates type stored as Strings
+  preferredDates: [ String ],
   picture: String,
+  about: String,
+  minAge: Number, 
+  maxAge: Number, 
+  preferredGender: String,
   likedUsers: [ userSchema ]
-
-  //pictures ?
 });
 
 const User = mongoose.model('User', userSchema);
