@@ -139,7 +139,14 @@ router.put('/looking/:id', async (req, res) => {
 
 
 // Edit Entire User
-
+router.get('/:id/full', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+		
+	} catch (err) {
+		res.send(err); 
+	}
+});
 
 
 
