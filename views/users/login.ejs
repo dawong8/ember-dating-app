@@ -4,25 +4,20 @@
     <meta charset="utf-8">
     <title>Project2 | Preferences</title>
   </head>
+
+</html>
   <body>
+
+
+  	  <%= message %>
+
+
     <h1>Login</h1>
       <form action="/auth/login" method="POST">
         <h4>username</h4><br>
-        <input type="text" name=""><br>
+        <input type="text" name="username"><br>
         <h4>Password</h4><br>
   			<input type="text" name="password" /><br>
         <button type="submit" name="button">Login</button>
   </body>
-</html>
-<body>
-	<form action="/user/preferences/<%= user.id %>?_method=PUT" method="POST">
-		<input type="checkbox" name="preferredDates" value="dinner"> dinner <br>
-		<input type="checkbox" name="preferredDates" value="movie"> movie <br>		
-		<input type="checkbox" name="preferredDates" value="hiking"> hiking <br>		
-		<input type="checkbox" name="preferredDates" value="shopping"> shopping <br>		
-
-		<button input="submit">Ready? </button>
-		
-	</form>
-</body>
 </html>

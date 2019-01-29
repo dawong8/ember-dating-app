@@ -5,6 +5,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const userController = require('./controllers/userController');
+const authController = require('./controllers/authController');
+
+
+
 const session = require('express-session');
 
 require('./db/db');
@@ -20,7 +24,7 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/user', userController)
-app.use('/auth', userController);
+app.use('/auth', authController);
 
 
 
@@ -28,15 +32,8 @@ app.get('/', (req, res) => {
 	res.render('index.ejs');
 });
 
-app.get('/preferences', (req, res) => {
-	res.render('users/preferences.ejs')
-});
 
-app.get('/login', (req, res) => {
-	res.render('users/login.ejs', {
-		message: req.session.message
-	})
-});
+
 
 
 app.listen(3000, () => {
