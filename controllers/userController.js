@@ -103,20 +103,17 @@ router.put('/looking/:id', async (req, res) => {
 
 
 
-// create user
-router.post('/', (req, res) => {
-	Users.create(req.body, (err, createdUser) => {
-		if (err) {
-			res.send(err);
-		} else {
-			res.redirect('/user');
-		}
-	})
-});
-
 
 
 // Edit Entire User
+router.get('/:id/full', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+	} catch (err) {
+		res.send(err);
+	}
+});
 
 
 router.post('/', async (req, res) => {
