@@ -20,6 +20,8 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/user', userController)
+app.use('/auth', userController);
+
 
 
 app.get('/', (req, res) => {
@@ -31,8 +33,10 @@ app.get('/preferences', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	res.render('users/login.ejs')
-})
+	res.render('users/login.ejs', {
+		message: req.session.message
+	})
+});
 
 
 app.listen(3000, () => {
