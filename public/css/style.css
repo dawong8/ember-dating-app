@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic%7CPacifico%7CQuestrial');
+
+
+/*----------------FONT SCHEMA ---------------------------------*/
+
+/* font-family: 'Pacifico', cursive;
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Questrial', sans-serif; */
+
+/*----------------COLOR SCHEMA ---------------------------------*/
+/*
+  PURPLE: #A1A0D2
+  DARK PURPLE: #9449D8
+  RED: #D86A75
+  GREEN: #82FBD4
+*/
+
+
+body {
+  background-color: #A1A0D2;
+  color: #FFFF;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+}
