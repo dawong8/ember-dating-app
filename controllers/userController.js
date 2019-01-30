@@ -3,7 +3,7 @@ const router  = express.Router();
 const Users = require('../models/users');
 const bcrypt  = require('bcryptjs');
 
-
+// "admin" page --- to show all users 
 router.get('/', (req, res) => {
 
 	Users.find({}, (err, allUsers) => {
@@ -18,6 +18,18 @@ router.get('/', (req, res) => {
 	})
 })
 
+
+// temporary delete page 
+
+router.delete('/:id', (req, res) =>{
+	Users.findByIdAndRemove(req.params.id, (err, deletedUser) => {
+		if (err) {
+			res.send(err); 
+		} else {
+			res.redirect('/user');
+		}
+	});
+});
 
 
 
@@ -48,7 +60,7 @@ router.put('/:id', async (req, res) => {
 
 
 
-// edit
+// the type of dates you are looking for 
 
 router.get('/:id/preferences', async (req, res) => {
 	try {
@@ -75,14 +87,14 @@ router.put('/preferences/:id', async (req, res) => {
 
 
 
-
+// the type of people you are looking for 
 
 router.get('/:id/looking', async (req, res) => {
 	try {
 		const profile = await Users.findById(req.params.id);
 		res.render('users/looking.ejs', {
 			user: profile
-		})
+		});
 	} catch (err) {
 		res.send(err);
 	}
@@ -95,7 +107,7 @@ router.put('/looking/:id', async (req, res) => {
 		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
 
 
-		res.redirect(`/user`);
+		res.redirect(`/user/${req.params.id}/main`);
 	} catch (err) {
 		res.send(err);
 	}
@@ -109,11 +121,62 @@ router.put('/looking/:id', async (req, res) => {
 router.get('/:id/full', async (req, res) => {
 	try {
 		const profile = await Users.findById(req.params.id);
-
+		res.render('users/fullEdit.ejs', {
+			user: profile
+		});
 	} catch (err) {
 		res.send(err);
 	}
 });
+
+router.put('/full/:id', async (req, res) => {
+	try {
+		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
+		res.redirect(`/user/${req.params.id}/main`);
+	}catch (err) {
+		res.send(err);
+	}
+});
+
+
+
+
+
+
+
+
+// ============== Main =================
+
+router.get('/:id/main', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+
+		const potential = Users.findOne(
+			{ 
+				age: 
+					{ $gte : `${profile.minAge}` }, 
+			
+				gender: `${profile.preferredGender}`  
+
+
+			});
+
+		console.log('==========================');
+		console.log('potential match is : ' + potential.age);
+		console.log('==========================');
+
+		res.render('main/swipe.ejs', {
+			user: profile, 
+			match: potential
+		})
+	} catch (err) {
+		res.send(err);
+	}
+});
+
+
+
 
 
 router.post('/', async (req, res) => {

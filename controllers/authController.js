@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         console.log('**********************');
 
 
-        res.redirect(`/user/${createdUser.id}/profile`);
+        res.redirect(`/user/${foundUser.id}/main`);
 
         //successful login 
 
