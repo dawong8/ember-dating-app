@@ -14,6 +14,7 @@ const session = require('express-session');
 
 require('./db/db');
 
+app.use(express.static('public'));
 
 app.use(session({
   secret: "THIS IS THE SESSION MESSAGE",
