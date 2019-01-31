@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> no more dates</title>
-</head>
-<body>	
-	<p> no available matches</p>
+<% include ../partials/_head %>
+<% include ../partials/_header %>
 
-	<a href="/user/<%= user._id%>/looking"> edit your preferences </a>
 
-	<a href="/user/<%= user._id%>/my-matches"> view my matches </a>
-</body>
-</html>
+	<img class="radar" src="/images/radar-green.png" alt="radar.png">
+	<p>
+		<h3>No one you might like for now in your radar...</h3>
+	</p>
+	<p></p>
+	<h4>come back later</h4>
+	<p> <h3>or...</h3> </p>
+
+
+	<button  class= "btn btn-primary btn-lg" aria-pressed="false" name="button" onclick="window.location.href='/user/<%= user._id%>/looking'">Edit your preferences</button><br>
+
+
+
+
+	<!-- <a href="/user/<%= user._id%>/my-matches"> view my matches </a> -->
+
+
+<% include ../partials/_footer %>

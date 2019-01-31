@@ -48,13 +48,27 @@ h1 {
 h2 {
   font-family: 'Work Sans', cursive;
   font-size: 26px;
-  margin-bottom: 30px;
+}
+
+h3 {
+  font-family: 'Work Sans', cursive;
+  font-size: 18px;
+}
+
+.noOneAvailable{
+  color: #82FBD4
 }
 
 h5 {
   padding: 0
   font-family: 'Questrial', sans-serif;
   font-size: 15px;
+}
+
+h6 {
+  padding: 0
+  font-family: 'Questrial', sans-serif;
+  font-size: 13px;
 }
 
 a {
@@ -95,6 +109,8 @@ a:visited{
   border-radius: 20px;
   margin: auto;
   width: 350px;
+  margin-bottom: 50px;
+  padding: 10px 0 0 0;
 }
 
 label{
@@ -126,6 +142,11 @@ input {
   border: 10px;
 }
 
+.radar{
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
+
 footer {
   position: fixed;
   left: 0;
@@ -133,4 +154,5 @@ footer {
   width: 100%;
   text-align: center;
   background-color: #A2A1D2;
+  margin-top: 20px;
 }
