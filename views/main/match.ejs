@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> MATCH</title>
-</head>
-<body>
-	<p> matched </p>
-	<%= you %> matched with <%= match%>
 
-	<p> here are all the possible dates you can go on </p>
+<% include ../partials/_head %>
+<% include ../partials/_header %>
+
+
+
+	<h2> Congratulations! </h2>
+	<h2><%= you %> matched with <%= match%></h2>
+
+	<p> Below are the available dates you can go: </p>
 
 	<% for (let a = 0; a < dates.length; a++) {%>
 		<%= dates[a].name %>
@@ -17,5 +17,5 @@
 
 
 	<% }%>
-</body>
-</html>
+
+<% include ../partials/_footer %>
