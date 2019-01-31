@@ -3,6 +3,8 @@
 <% include ../partials/_header %>
 
 
+
+<div class="card">
 	<form action="/user/preferences/<%= user.id %>?_method=PUT" method="POST">
 		<input type="checkbox" name="preferredDates" value="dinner"> dinner <br>
 		<input type="checkbox" name="preferredDates" value="movie"> movie <br>
@@ -12,5 +14,6 @@
 		<button input="submit">Ready? </button>
 
 	</form>
+</div>
 
 <% include ../partials/_footer %>
