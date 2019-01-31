@@ -27,6 +27,18 @@ body {
   text-align: center;
 }
 
+.title{
+  color: white;
+}
+
+.title:hover{
+  color: white;
+}
+
+.title:visited{
+  color: white;
+}
+
 h1 {
   font-family: 'Pacifico', cursive;
   text-align: center;
@@ -100,6 +112,7 @@ input {
 .btn-lg{
   background-color: #D86A75;
   border-color: #D86A75;
+  border-bottom: 20px;
   border-radius: 25px;
   font-size: 18px;
 }
@@ -107,6 +120,10 @@ input {
 .btn:hover{
   background-color: #fc7e88;
   border-color: #fc7e88;
+}
+
+.alert {
+  border: 10px;
 }
 
 footer {

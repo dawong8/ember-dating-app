@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
 	// console.log(req.body.username || req.body.password);
 	if (!req.body.username || !req.body.password) {
-		req.session.message = 'Please enter your sername and password';
+		req.session.message = 'Please enter your username and password';
 		console.log(req.session.message);
 		res.redirect('/auth/login');
 	} else {
