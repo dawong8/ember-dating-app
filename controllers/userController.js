@@ -3,6 +3,9 @@ const router  = express.Router();
 const Users = require('../models/users');
 const Dates = require('../models/dates');
 
+// var multer  = require('multer');
+// var upload = multer({ dest: 'uploads/' });
+
 
 // "admin" page --- to show all users 
 router.get('/', (req, res) => {
@@ -103,6 +106,7 @@ router.get('/:id/looking', async (req, res) => {
 
 
 router.put('/looking/:id', async (req, res) => {
+	console.log(typeof req.body.maxAge);
 	try {
 
 		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
@@ -166,13 +170,18 @@ router.get('/:id/ready', async (req, res) => {
 				_id: 
 					{ $ne: profile._id }
 
-				// not already in 
+				// not already in your liked list
 
 			});
+		console.log('POTENTIAL =============');
+		console.log(potential);
+
+
 
 		profile.availableUsers = potential;
 		const data =  await profile.save();
-
+		console.log('PROFILE =============');
+		console.log(profile);
 
 		res.render('main/ready.ejs', {
 			user: profile
