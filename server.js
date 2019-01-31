@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const userController = require('./controllers/userController');
 const authController = require('./controllers/authController');
+const datesController = require('./controllers/datesController');
 
 
 
@@ -25,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/user', userController)
 app.use('/auth', authController);
-
+app.use('/dates', datesController);
 
 
 app.get('/', (req, res) => {

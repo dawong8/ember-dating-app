@@ -15,7 +15,8 @@ userSchema.add({
   maxAge: {type: Number, default: 9999},
   preferredGender: [String],
   likedUsers: [ userSchema ], 
-  availableUsers: [ userSchema ]
+  availableUsers: [ userSchema ], 
+  matches: [ userSchema]
 });
 
 const User = mongoose.model('User', userSchema);

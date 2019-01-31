@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> all my matches </title>
+</head>
+<body>
+
+	<% for (let a = 0; a < allMatches.length; a++ ) { %>
+		<%= allMatches[a].name %>
+		<form action='/user/my-matches/<%= user._id%>?_method=PUT' method='POST'>
+			<button type='submit' name='removeMatch' value='<%= a %>'> X </button>			
+		</form>
+	<% }%>
+</body>
+</html>
