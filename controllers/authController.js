@@ -11,7 +11,6 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log('in post ')
   const password = req.body.password;
 
   const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -23,9 +22,7 @@ router.post('/', async (req, res) => {
 
   try {
     const createdUser = await Users.create(userDbEntry);
-    console.log('=====================================');
-    console.log(createdUser);
-    console.log('=====================================');;
+
     req.session.username = createdUser.username;
     req.session.logged   = true;
 
@@ -51,12 +48,8 @@ router.post('/login', async (req, res) => {
         req.session.username = foundUser.username;
         req.session.logged = true;
 
-        console.log('**********************');
-        console.log('logged', foundUser);
-        console.log('**********************');
 
-
-        res.redirect(`/user/${createdUser.id}/profile`);
+        res.redirect(`/user/${foundUser.id}/ready`);
 
         //successful login 
 

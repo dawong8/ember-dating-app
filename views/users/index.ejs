@@ -15,10 +15,14 @@
 		Gender: <%= user[a].gender%>
 		Preferred Dates: 
 		<%	for (let b = 0; b < user[a].preferredDates.length; b++) {%>
-			<%= user[a].preferredDates[b]%>
+			<%=b%> : <%= user[a].preferredDates[b]%>
 			<br>
 		<%	} %>
 		<br>
+
+		<form action='/user/<%= user[a]._id%>?_method=DELETE' method="POST">
+			<button type="submit"> delete </button>
+		</form>
 	<%}%>
 
 

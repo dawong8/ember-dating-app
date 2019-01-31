@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> MATCH</title>
+</head>
+<body>
+	<p> matched </p>
+	<%= you %> matched with <%= match%>
+
+	<p> here are all the possible dates you can go on </p>
+
+	<% for (let a = 0; a < dates.length; a++) {%>
+		<%= dates[a].name %>
+		<%= dates[a].price %>
+		<%= dates[a].address %>
+		<%= dates[a].type %>
+
+
+	<% }%>
+</body>
+</html>

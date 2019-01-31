@@ -1,9 +1,10 @@
 const express = require('express');
 const router  = express.Router();
 const Users = require('../models/users');
-const bcrypt  = require('bcryptjs');
+const Dates = require('../models/dates');
 
 
+// "admin" page --- to show all users 
 router.get('/', (req, res) => {
 
 	Users.find({}, (err, allUsers) => {
@@ -18,6 +19,18 @@ router.get('/', (req, res) => {
 	})
 })
 
+
+// temporary delete page 
+
+router.delete('/:id', (req, res) =>{
+	Users.findByIdAndRemove(req.params.id, (err, deletedUser) => {
+		if (err) {
+			res.send(err); 
+		} else {
+			res.redirect('/user');
+		}
+	});
+});
 
 
 
@@ -48,7 +61,7 @@ router.put('/:id', async (req, res) => {
 
 
 
-// edit
+// the type of dates you are looking for 
 
 router.get('/:id/preferences', async (req, res) => {
 	try {
@@ -75,14 +88,14 @@ router.put('/preferences/:id', async (req, res) => {
 
 
 
-
+// the type of people you are looking for 
 
 router.get('/:id/looking', async (req, res) => {
 	try {
 		const profile = await Users.findById(req.params.id);
 		res.render('users/looking.ejs', {
 			user: profile
-		})
+		});
 	} catch (err) {
 		res.send(err);
 	}
@@ -95,7 +108,7 @@ router.put('/looking/:id', async (req, res) => {
 		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
 
 
-		res.redirect(`/user`);
+		res.redirect(`/user/${req.params.id}/ready`);
 	} catch (err) {
 		res.send(err);
 	}
@@ -109,6 +122,94 @@ router.put('/looking/:id', async (req, res) => {
 router.get('/:id/full', async (req, res) => {
 	try {
 		const profile = await Users.findById(req.params.id);
+		res.render('users/fullEdit.ejs', {
+			user: profile
+		});
+	} catch (err) {
+		res.send(err);
+	}
+});
+
+router.put('/full/:id', async (req, res) => {
+	try {
+		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
+		res.redirect(`/user/${req.params.id}/ready`);
+	}catch (err) {
+		res.send(err);
+	}
+});
+
+
+router.get('/:id/ready', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+		const potential = await Users.find(
+			{ 
+				preferredDates: 
+					{ $in: profile.preferredDates }, 
+				gender: 
+					{ $in: profile.preferredGender}, 
+				age: 
+					{ $gte: profile.minAge, 
+					  $lte: profile.maxAge},
+				minAge: 
+					{
+						$lte: profile.age
+					},
+				maxAge: 
+					{
+						$gte: profile.age
+					},
+				preferredGender: profile.gender,
+
+				_id: 
+					{ $ne: profile._id }
+
+				// not already in 
+
+			});
+
+		profile.availableUsers = potential;
+		const data =  await profile.save();
+
+
+		res.render('main/ready.ejs', {
+			user: profile
+		});
+	} catch (err) {
+		res.send(err);
+	}
+});
+
+
+// ============= Match =============
+
+router.get('/:id/match', (req, res) => {
+	res.render('main/match.ejs');
+
+});
+
+
+// ============== Main =================
+
+router.get('/:id/main', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+		if (profile.availableUsers.length > 0) {
+
+			res.render('main/swipe.ejs', {
+				user: profile, 
+				match: profile.availableUsers[0]
+			})
+		} else {
+			res.render('main/nodates.ejs', {
+				user: profile
+			})
+		}
+
+		//console.log(profile);
 
 	} catch (err) {
 		res.send(err);
@@ -116,83 +217,112 @@ router.get('/:id/full', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
-  console.log('in post ')
-  const password = req.body.password;
-
-  const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-
-  const userDbEntry = {};
-  userDbEntry.username = req.body.username;
-  userDbEntry.email    = req.body.email;
-  userDbEntry.password = hashedPassword;
-
-  try {
-    const createdUser = await Users.create(userDbEntry);
-    console.log('=====================================');
-    console.log(createdUser);
-    console.log('=====================================');;
-    req.session.username = createdUser.username;
-    req.session.logged   = true;
-
-    res.redirect(`/user/${createdUser.id}/profile`);
 
 
+router.put('/main/:id', async (req, res) => {
+	try {
 
-  } catch(err){
-    res.send(err);
-  }
+		const profile = await Users.findById(req.params.id);
+		const temp = profile.availableUsers.shift();
+		const data = await profile.save();
 
+		if (req.body.match === 'like') {
+			profile.likedUsers.push(temp);
+			const liked = await profile.save();
+
+			let matched = false;
+			for (let a = 0; a < temp.likedUsers.length; a++) {
+				if (temp.likedUsers[a]._id.toString().trim() == profile._id.toString().trim()) {
+
+					matched = true;
+				}
+
+			
+			}
+
+
+			if (matched) {
+
+				profile.matches.push(temp);
+				const save = await profile.save();
+
+
+				//temp.matches.push(profile);
+				//const tempSave = await temp.save(); // this temp might be referencing a different object 
+
+				const possibleDates = await Dates.find({
+					type: 
+						{ $in: profile.preferredDates}
+				});
+
+				res.render('main/match.ejs', {
+					you: profile.name, 
+					match: temp.name, 
+					dates: possibleDates
+				});
+
+			} else {
+				res.redirect(`/user/${profile.id}/main`);
+
+			}
+
+		} else if (req.body.match === 'pass') {
+
+			// do nothing 
+			res.redirect(`/user/${profile.id}/main`);
+
+		}
+
+
+
+
+
+
+
+	} catch (err) {
+		res.send(err);
+	}
 });
 
-router.post('/login', async (req, res) => {
 
-  try {
+// ============== view my matches ===========
+router.get('/:id/my-matches', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
 
-    const foundUser = await Users.findOne({username: req.body.username});
+		console.log(profile);
 
-    if(foundUser) {
-      if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-        req.session.message = '';
-        req.session.username = foundUser.username;
-        req.session.logged = true;
-
-        console.log('**********************');
-        console.log('logged', foundUser);
-        console.log('**********************');
+		res.render('main/mymatches.ejs', {
+			user:  profile,
+			allMatches: profile.matches
+		})
 
 
-        res.redirect(`/user/${createdUser.id}/profile`);
-
-        //successful login 
-
-      }else {
-        //Add an ALERT?
-        req.session.message = 'Username or password are incorrect';
-        console.log(req.session.message);
-        res.redirect('/login');
-      }
-    }else {
-      //Add an ALERT?
-      req.session.message = 'Username or password are incorrect';
-      res.redirect('/login');
-    }
-
-  } catch (err) {
-    console.log('ERROR', err);
-    res.send(err);
-  }
-
+	} catch (err) {
+		res.send(err);
+	}
 });
 
-router.get('logout', (req, res) => {
-  req.session.destroy((err) => {
-    if(err){
-      res.send(err);
-    }else {
-      req.redirect('');
-    }
-  });
+
+
+// ======= delete match ====== 
+
+router.put('/my-matches/:id', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+		profile.matches.splice(req.body.removeMatch, 1);
+
+		const data = await profile.save();
+
+		res.redirect(`/user/${profile._id}/my-matches`);
+
+
+	} catch (err) {
+		res.send(err);
+	}
 });
+
+
 
 module.exports = router;
