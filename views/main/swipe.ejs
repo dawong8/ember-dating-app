@@ -6,6 +6,12 @@
 <body>
 
 	<p> <a href="/user/<%= user.id%>/full"> Edit full Profile </a></p>
+	match : <%= match.name%>
 
+	<form action='/user/main/<%= user._id%>?_method=PUT' method='POST'>
+		<button type='submit' name='match' value='like'> LIKE </button>
+		<button type='submit' name='match' value='pass'> PASS </button>
+
+	</form>
 </body>
 </html>

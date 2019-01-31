@@ -11,10 +11,11 @@ userSchema.add({
   preferredDates: [ String ],
   picture: String,
   about: String,
-  minAge: Number,
-  maxAge: Number,
-  preferredGender: String,
-  likedUsers: [ userSchema ]
+  minAge: {type: Number, default: 0},
+  maxAge: {type: Number, default: 9999},
+  preferredGender: [String],
+  likedUsers: [ userSchema ], 
+  availableUsers: [ userSchema ]
 });
 
 const User = mongoose.model('User', userSchema);

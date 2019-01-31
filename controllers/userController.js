@@ -107,7 +107,7 @@ router.put('/looking/:id', async (req, res) => {
 		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
 
 
-		res.redirect(`/user/${req.params.id}/main`);
+		res.redirect(`/user/${req.params.id}/ready`);
 	} catch (err) {
 		res.send(err);
 	}
@@ -132,17 +132,62 @@ router.get('/:id/full', async (req, res) => {
 router.put('/full/:id', async (req, res) => {
 	try {
 		const profile = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
-		res.redirect(`/user/${req.params.id}/main`);
+		res.redirect(`/user/${req.params.id}/ready`);
 	}catch (err) {
 		res.send(err);
 	}
 });
 
 
+router.get('/:id/ready', async (req, res) => {
+	try {
+		const profile = await Users.findById(req.params.id);
+
+		const potential = await Users.find(
+			{ 
+				preferredDates: 
+					{ $in: profile.preferredDates }, 
+				gender: 
+					{ $in: profile.preferredGender}, 
+				age: 
+					{ $gte: profile.minAge, 
+					  $lte: profile.maxAge},
+				minAge: 
+					{
+						$lte: profile.age
+					},
+				maxAge: 
+					{
+						$gte: profile.age
+					},
+				preferredGender: profile.gender,
+
+				_id: 
+					{ $ne: profile._id }
+
+				// not already in 
+
+			});
+
+		profile.availableUsers = potential;
+		const data =  await profile.save();
 
 
+		res.render('main/ready.ejs', {
+			user: profile
+		});
+	} catch (err) {
+		res.send(err);
+	}
+});
 
 
+// ============= Match =============
+
+router.get('/:id/match', (req, res) => {
+	res.render('main/match.ejs');
+
+});
 
 
 // ============== Main =================
@@ -151,25 +196,85 @@ router.get('/:id/main', async (req, res) => {
 	try {
 		const profile = await Users.findById(req.params.id);
 
+		if (profile.availableUsers.length > 0) {
 
-		const potential = Users.findOne(
-			{ 
-				age: 
-					{ $gte : `${profile.minAge}` }, 
+			res.render('main/swipe.ejs', {
+				user: profile, 
+				match: profile.availableUsers[0]
+			})
+		} else {
+			res.render('main/nodates.ejs', {
+				user: profile
+			})
+		}
+
+		//console.log(profile);
+
+	} catch (err) {
+		res.send(err);
+	}
+});
+
+
+
+
+router.put('/main/:id', async (req, res) => {
+	try {
+
+		const profile = await Users.findById(req.params.id);
+		console.log('PROFILE', profile);
+
+		const temp = profile.availableUsers.shift();
+		console.log('TEMP ================= ', temp)
+		const data = await profile.save();
+
+		if (req.body.match === 'like') {
+			profile.likedUsers.push(temp);
+			const liked = await profile.save();
+			console.log('LIKED ============== ', liked)
+
+			let matched = false;
+			for (let a = 0; a < temp.likedUsers.length; a++) {
+				console.log('BEFORE IF =====================');
+				console.log('MATCHED ===================== ', matched);
+				if (temp.likedUsers[a]._id.toString().trim() == profile._id.toString().trim()) {
+				// if (1 == 1) {
+					console.log('IN IF =====================');
+					console.log('FOUND A MATCH');
+					matched = true;
+				}
+				console.log('temp users ' + temp.likedUsers[a]._id);
+				console.log('profile ' + profile._id);
 			
-				gender: `${profile.preferredGender}`  
+			}
+			// const match = temp.likedUsers.find( (element) => {
+			// 	if (element === profile) {
+			// 		console.log('FOUND A MATCH');
+			// 		return element;
+			// 	} else {
+			// 		console.log('NOT A MATCH');
+
+			// 		return null;
+			// 	}
+			// });
+			console.log('Match is ' + matched);
+
+			if (matched) {
+				res.redirect(`/user/${profile._id}/match`);
+			}
+
+		} else if (req.body.match === 'pass') {
+
+			// do nothing 
+		}
 
 
-			});
 
-		console.log('==========================');
-		console.log('potential match is : ' + potential.age);
-		console.log('==========================');
 
-		res.render('main/swipe.ejs', {
-			user: profile, 
-			match: potential
-		})
+
+		res.redirect(`/user/${profile.id}/main`);
+
+
 	} catch (err) {
 		res.send(err);
 	}
@@ -179,83 +284,6 @@ router.get('/:id/main', async (req, res) => {
 
 
 
-router.post('/', async (req, res) => {
-  console.log('in post ')
-  const password = req.body.password;
 
-  const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-
-  const userDbEntry = {};
-  userDbEntry.username = req.body.username;
-  userDbEntry.email    = req.body.email;
-  userDbEntry.password = hashedPassword;
-
-  try {
-    const createdUser = await Users.create(userDbEntry);
-    console.log('=====================================');
-    console.log(createdUser);
-    console.log('=====================================');;
-    req.session.username = createdUser.username;
-    req.session.logged   = true;
-
-    res.redirect(`/user/${createdUser.id}/profile`);
-
-
-
-  } catch(err){
-    res.send(err);
-  }
-
-});
-
-router.post('/login', async (req, res) => {
-
-  try {
-
-    const foundUser = await Users.findOne({username: req.body.username});
-
-    if(foundUser) {
-      if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-        req.session.message = '';
-        req.session.username = foundUser.username;
-        req.session.logged = true;
-
-        console.log('**********************');
-        console.log('logged', foundUser);
-        console.log('**********************');
-
-
-        res.redirect(`/user/${createdUser.id}/profile`);
-
-        //successful login 
-
-      }else {
-        //Add an ALERT?
-        req.session.message = 'Username or password are incorrect';
-        console.log(req.session.message);
-        res.redirect('/login');
-      }
-    }else {
-      //Add an ALERT?
-      req.session.message = 'Username or password are incorrect';
-      res.redirect('/login');
-    }
-
-  } catch (err) {
-    console.log('ERROR', err);
-    res.send(err);
-  }
-
-});
-
-router.get('logout', (req, res) => {
-  req.session.destroy((err) => {
-    if(err){
-      res.send(err);
-    }else {
-      req.redirect('');
-    }
-  });
-});
 
 module.exports = router;
