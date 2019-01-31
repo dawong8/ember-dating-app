@@ -95,7 +95,10 @@ a:visited{
   border-radius: 20px;
   margin: auto;
   width: 350px;
+  padding: 1%;
 }
+
+
 
 label{
   float: left;
@@ -103,6 +106,8 @@ label{
 
 form {
   margin: 40px;
+  font-family: 'Work Sans', cursive;
+
 }
 
 input {
@@ -133,4 +138,70 @@ footer {
   width: 100%;
   text-align: center;
   background-color: #A2A1D2;
+  font-family: 'Work Sans', cursive;
+ 
+}
+
+
+.heart {
+  -webkit-filter: hue-rotate(180deg);
+  filter: hue-rotate(180deg);
+  animation: heartbeat 1s infinite;
+
+}
+
+.body-container {
+  margin-top: 10%;
+}
+
+.swipe-button {
+  background: none;
+  border: none;
+}
+
+
+.edit-profile {
+  position:fixed;
+  top:  0px;
+  width: 50%
+}
+.my-matches {
+  right: 0px;
+}
+
+
+.user-photo {
+  border-radius: 30px;
+  border: 1px white solid;
+}
+
+#ready-title {
+  margin-top: 2.5%;
+}
+@keyframes heartbeat
+{
+  0%
+  {
+    transform: scale( 1.25 );
+  }
+  20%
+  {
+    transform: scale( 1.75 );
+  }
+  40%
+  {
+    transform: scale( 1.25 );
+  }
+  60%
+  {
+    transform: scale( 1.75 );
+  }
+  80%
+  {
+    transform: scale( 1.25 );
+  }
+  100%
+  {
+    transform: scale( 1.25 );
+  }
 }
