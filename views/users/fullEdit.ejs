@@ -1,4 +1,15 @@
 <% include ../partials/_head %>
 <% include ../partials/_header %>
+Edit profile page.
+  <form action="/user/full/<%= user.id%>?_method=PUT" method="POST">
+      name: <input type="text" name="name" value="<%= user.name%>"> <br> <!-- make sure to get rid of all the <br> tags -->
+      age: <input type="number" name="age" value="<%= user.age%>"> <br>
+      <p> gender </p> <select name="gender">
+          <option value="female"> female </option>
+          <option value="male"> male </option>
+          <option value="non-binary"> non-binary </option>
 
+      </select> <br>
+      <button type="submit"> Submit changes</button>
+  </form>
 <% include ../partials/_footer %>
