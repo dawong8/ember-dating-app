@@ -37,38 +37,48 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+	// console.log(req.body.username || req.body.password);
+	if (!req.body.username || !req.body.password) {
+		req.session.message = 'Please enter your username and password';
+		console.log(req.session.message);
+		res.redirect('/auth/login');
+	} else {
+		try {
 
-  try {
+			const foundUser = await Users.findOne({username: req.body.username});
 
-    const foundUser = await Users.findOne({username: req.body.username});
+			if(foundUser) {
+				if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+					req.session.message = '';
+					req.session.username = foundUser.username;
+					req.session.logged = true;
 
-    if(foundUser) {
-      if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-        req.session.message = '';
-        req.session.username = foundUser.username;
-        req.session.logged = true;
+					console.log('**********************');
+					console.log('logged', foundUser);
+					console.log('**********************');
 
 
-        res.redirect(`/user/${foundUser.id}/ready`);
+					res.redirect(`/user/${createdUser.id}/ready`);
 
-        //successful login 
+					//successful login
 
-      }else {
-        //Add an ALERT?
-        req.session.message = 'Username or password are incorrect';
-        console.log(req.session.message);
-        res.redirect('/auth/login');
-      }
-    }else {
-      //Add an ALERT?
-      req.session.message = 'Username or password are incorrect';
-      res.redirect('/auth/login');
-    }
+				}else {
+					//Add an ALERT?
+					req.session.message = 'Username or password are incorrect';
+					console.log(req.session.message);
+					res.redirect('/auth/login');
+				}
+			}else {
+				//Add an ALERT?
+				req.session.message = 'Username or password are incorrect';
+				res.redirect('/auth/login');
+			}
 
-  } catch (err) {
-    console.log('ERROR', err);
-    res.send(err);
-  }
+		} catch (err) {
+			console.log('ERROR', err);
+			res.send(err);
+		}
+	}
 
 });
 
