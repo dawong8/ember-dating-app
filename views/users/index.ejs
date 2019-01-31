@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> Date Match</title>
+<% include ../partials/_head %>
+<% include ../partials/_header %>
 
-</head>
-<body>
 	<p> this is a temporary page</p>
 
-	
+
 	<% for (let a = 0; a < user.length; a++) { %>
-		Name: <a href="/user/<%=user[a]._id%>/profile"> <%= user[a].name%> </a> 
+		Name: <a href="/user/<%=user[a]._id%>/profile"> <%= user[a].name%> </a>
 		Age: <%= user[a].age%>
 		About: <%= user[a].about%>
 		Gender: <%= user[a].gender%>
-		Preferred Dates: 
+		Preferred Dates:
 		<%	for (let b = 0; b < user[a].preferredDates.length; b++) {%>
 			<%= user[a].preferredDates[b]%>
 			<br>
@@ -22,6 +18,5 @@
 	<%}%>
 
 
-	
-</body>
-</html>
+
+<% include ../partials/_footer %>

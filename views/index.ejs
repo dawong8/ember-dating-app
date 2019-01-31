@@ -1,18 +1,33 @@
 	<% include partials/_head %>
+	<% include partials/_header %>
 
-		<h1>DateMatch</h1>
-				<h2>Register</h2>
-				<form action="/user" method="POST">
-					<h4>User name</h4><br>
-					<input type="text" name="username" /><br>
-					<h4>E-mail</h4><br>
-					<input type="email" name="email" /><br>
-					<h4>Password</h4><br>
-					<input type="text" name="password" /><br>
-					<button type="submit" name="button">Register</button>
-				</form>
-				<h5>Already registered?</h5>
-				<a href="/auth/login">Login</a>
-
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="card">
+					<form action="/user" method="POST">
+						<h2>Sign up</h2>
+						<div class="form-group">
+							<label for="Username">Username:</label>
+							<input type="text" class="form-control" name="username" /><br>
+						</div>
+						<div class="form-group">
+							<label for="Email">Email Address:</label>
+							<input type="text" class="form-control" name="email" /><br>
+						</div>
+						<div class="form-group">
+							<label for="Password">Passwod:</label>
+							<input type="text" class="form-control" name="password" /><br>
+						</div>
+						<button  class= "btn btn-primary btn-lg" aria-pressed="false"type="submit" name="button">Register</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="col-right">
+					<h5>Already registered?</h5>
+					<a href="/auth/login">Login</a>
+				</div>
+			</div>
+		</div>
 
 <% include partials/_footer %>

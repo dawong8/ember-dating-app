@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic%7CPacifico%7CQuestrial');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:100');
+@import url('https://fonts.googleapis.com/css?family=Grand+Hotel');
+
 
 
 /*----------------FONT SCHEMA ---------------------------------*/
@@ -6,6 +9,8 @@
 /* font-family: 'Pacifico', cursive;
 font-family: 'Nanum Gothic', sans-serif;
 font-family: 'Questrial', sans-serif; */
+/* font-family: 'Work Sans', sans-serif; */
+
 
 /*----------------COLOR SCHEMA ---------------------------------*/
 /*
@@ -13,14 +18,102 @@ font-family: 'Questrial', sans-serif; */
   DARK PURPLE: #9449D8
   RED: #D86A75
   GREEN: #82FBD4
+  DARK BLUE: #464961
 */
-
-
 body {
-  background-color: #A1A0D2;
+  background-color: #867EC2;
   color: #FFFF;
+  align-content: center;
+  text-align: center;
 }
 
 h1 {
   font-family: 'Pacifico', cursive;
+  text-align: center;
+  font-size: 75px;
+}
+
+h2 {
+  font-family: 'Work Sans', cursive;
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+h5 {
+  padding: 0
+  font-family: 'Questrial', sans-serif;
+  font-size: 15px;
+}
+
+a {
+  padding: 0;
+  font-family: 'Work Sans', cursive;
+  font-size: 20px;
+  color: #82FBD4;
+}
+
+a:hover{
+  color: #D86A75;
+  text-decoration: none;
+}
+
+a:visited{
+  color: #82FBD4;
+  text-decoration: none;
+}
+
+.row{
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 50px;
+}
+
+.col-lg-6{
+  position: relative;
+}
+
+.col-right{
+  margin-top: 25%;
+  margin-bottom: 25%;
+}
+
+.card {
+  background-color: #867EC2;
+  border-color: #FFFF;
+  border-radius: 20px;
+  margin: auto;
+  width: 50%;
+}
+
+label{
+  float: left;
+}
+
+form {
+  margin: 40px;
+}
+
+input {
+  margin-top: 0;
+}
+
+.btn-lg{
+  background-color: #D86A75;
+  border-color: #D86A75;
+  border-radius: 25px;
+  font-size: 18px;
+}
+
+.btn:hover{
+  background-color: #fc7e88;
+  border-color: #fc7e88;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #A2A1D2;
 }

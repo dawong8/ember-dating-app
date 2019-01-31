@@ -1,21 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+<% include ../partials/_head %>
+<% include ../partials/_header %>
+
+
 	<form action="/user/<%= user.id %>?_method=PUT" method="POST">
-		<p> Name </p> <input type="text" name="name"> 
-		<p>	Age </p> <input type="number" name="age">
-		<p> gender </p> <select name="gender">
+		<div class="form-group">
+			<label for="Name">Name:</label>
+			<input type="text" class="class-control" name="name">
+		</div>
+		<div class="form-group">
+			<label for="Age">Age:</label>
+			<input type="text" class="class-control"  name="" value="">
+		</div>
+		<div class="form-group">
+  		<label for="gender">Gender:</label>
+  		<select class="form-control" id="sel1">
+    		<option value="female">Female</option>
+    		<option value="male">Female</option>
+    		<option value="?">?</option>
+  		</select>
+		</div>
+
+		<%# <p> Name </p> <input type="text" name="name"> %>
+		<%# <p>	Age </p> <input type="number" name="age"> %>
+		<%# <p> gender </p> <select name="gender">
 			<option value="female"> female </option>
 			<option value="male"> male </option>
-			<option value="?"> ? </option>
+			<option value="?"> ? </option> %>
 
-		</select> <br>
-		<p> about </p> <input type="text" name="about"> <br>		
+
+		<p> about </p> <input type="text" name="about"> <br>
 		<button input="submit"> Ready? </button>
-		
+
 	</form>
-</body>
-</html>
+
+	<% include ../partials/_footer %>

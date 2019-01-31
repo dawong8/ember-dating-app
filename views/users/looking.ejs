@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> Searching </title>
-</head>
-<body>
+<% include ../partials/_head %>
+<% include ../partials/_header %>
+
 	<p> People you want to search for </p>
 	<form action="/user/looking/<%= user.id %>?_method=PUT" method="POST">
 
@@ -19,10 +16,10 @@
 			<option value="?"> ? </option>
 		</select>
 
-			
+
 
 		<button input="submit"> Ready? </button>
-		
+
 	</form>
-</body>
-</html>
+
+<% include ../partials/_footer %>
