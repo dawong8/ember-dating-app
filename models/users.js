@@ -14,8 +14,8 @@ userSchema.add({
   minAge: {type: String, default: '0'},
   maxAge: {type: String, default: '9999'},
   preferredGender: [String],
-  likedUsers: [ userSchema ], 
-  availableUsers: [ userSchema ], 
+  likedUsers: [ userSchema ],
+  availableUsers: [ userSchema ],
   matches: [ userSchema]
 });
 

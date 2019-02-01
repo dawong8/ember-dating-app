@@ -11,28 +11,33 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const password = req.body.password;
+	const foundUser = await Users.findOne({username: req.body.username});
+	console.log(foundUser)
+	if (foundUser) {
+		req.session.message = 'That username has been used. Please choose another username.';
+		res.redirect('/');
+	} else {
+		const password = req.body.password;
 
-  const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+	  const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-  const userDbEntry = {};
-  userDbEntry.username = req.body.username;
-  userDbEntry.email    = req.body.email;
-  userDbEntry.password = hashedPassword;
+	  const userDbEntry = {};
+	  userDbEntry.username = req.body.username;
+	  userDbEntry.email    = req.body.email;
+	  userDbEntry.password = hashedPassword;
 
-  try {
-    const createdUser = await Users.create(userDbEntry);
+	  try {
+	    const createdUser = await Users.create(userDbEntry);
 
-    req.session.username = createdUser.username;
-    req.session.logged   = true;
+	    req.session.username = createdUser.username;
+	    req.session.logged   = true;
 
-    res.redirect(`/user/${createdUser.id}/profile`);
+	    res.redirect(`/user/${createdUser.id}/profile`);
 
-
-
-  } catch(err){
-    res.send(err);
-  }
+	  } catch(err){
+	    res.send(err);
+	  }
+	}
 
 });
 
@@ -82,12 +87,12 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.get('logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if(err){
       res.send(err);
     }else {
-      req.redirect('');
+      res.redirect('/');
     }
   });
 });
