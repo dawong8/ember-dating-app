@@ -4,10 +4,10 @@
 
 
 
-	<h2> Congratulations! </h2>
+	<h2> It's a Match! </h2>
 	<h2><%= you %> matched with <%= match%></h2>
 
-	<p> Below are the available dates you can go: </p>
+	<p> Below are the available dates you both can go: </p>
 
 	<% for (let a = 0; a < dates.length; a++) {%>
 		<%= dates[a].name %>
@@ -17,5 +17,5 @@
 
 
 	<% }%>
-
+	<button  id="dif" class= "btn btn-secondary btn-lg" aria-pressed="false" name="button" onclick="window.location.href='/user/<%= user._id%>/my-matches'">View my matches</button>
 <% include ../partials/_footer %>

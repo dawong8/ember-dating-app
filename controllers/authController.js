@@ -82,12 +82,12 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.get('logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if(err){
       res.send(err);
     }else {
-      req.redirect('');
+      res.redirect('/');
     }
   });
 });
