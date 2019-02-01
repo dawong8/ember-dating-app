@@ -100,7 +100,7 @@ In this screen, the user is matched with another user. The user now sees a list 
 In this screen, the dates are listed. The user can deleted any of the dates listed.  
 
 
-###Wireframes
+### Wireframes
 
 **Register screen**
 # ![](https://i.imgur.com/QlOpMw7.png)
@@ -133,13 +133,13 @@ In this screen, the dates are listed. The user can deleted any of the dates list
 # ![](https://i.imgur.com/b25PoMz.png)
 
 
-###Information Flow:
+### Information Flow:
 # ![](https://i.imgur.com/rMbPxiR.png)
 
-###ERD
+### ERD
 # ![](https://i.imgur.com/F1uZYgu.png)
 
-###Authors
+### Authors
 * **Cesar Martins** - [GitHub](https://git.generalassemb.ly/cesarmartins)
 
 * **Danny Wong** - [GitHub](https://git.generalassemb.ly/dawong8)
