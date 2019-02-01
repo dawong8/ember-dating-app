@@ -7,15 +7,15 @@ Ember is a dating app that matches not only users with the same profile preferen
 
 ### Technologies Used
 
-* **Node Server**
-* **MongoDB**
+* **Node.js**
+* **MongoDB / Mongoose**
 * **Javascript**
 * **Embedded Javascript**
 * **HTML**
 * **CSS**
 * **Git**
 
-###Installation Requirements
+### Installation Requirements
 
 Clone the repo and install the following NPM packages:
 
@@ -31,11 +31,13 @@ Clone the repo and install the following NPM packages:
 
 ```npm install mongoose```
 
-```npm install express-sessions````
+```npm install express-sessions```
+
+```npm install bcrypt```
 
 ```npm install  ejs```
 
-###Features
+### Features
 * User register
 * User login
 * User's profile setup
@@ -46,8 +48,8 @@ Clone the repo and install the following NPM packages:
 * Match Screen
 * View all matches
 
-###User Stories
-###Users Stories
+### User Stories
+### Users Stories
 
 **Starting Screen:**
 
