@@ -31,7 +31,7 @@ app.use('/dates', datesController);
 
 
 app.get('/', (req, res) => {
-	res.render('index.ejs');
+	res.render('index.ejs', {message: req.session.message});
 });
 
 
