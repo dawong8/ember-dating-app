@@ -2,10 +2,10 @@
 # ![](https://i.imgur.com/a3A3nAu.png)
 
 
-##About
+## About
 Ember is a dating app that matches not only users with the same profile preferences, but also matches dates preferences in order to make real life dating more easy.
 
-###Technologies Used
+### Technologies Used
 
 * **Node Server**
 * **MongoDB**
