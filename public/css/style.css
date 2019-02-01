@@ -205,6 +205,15 @@ footer {
 #ready-title {
   margin-top: 2.5%;
 }
+
+#dif {
+  background-color: #464961;
+  border-color: #464961;
+}
+
+#dif:hover {
+  opacity: 0.75;
+}
 @keyframes heartbeat
 {
   0%

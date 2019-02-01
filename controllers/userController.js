@@ -168,7 +168,8 @@ router.get('/:id/ready', async (req, res) => {
 				preferredGender: profile.gender,
 
 				_id: 
-					{ $ne: profile._id }
+					{ $ne: profile._id, 
+						$nin: profile.likedUsers}
 
 				// not already in your liked list
 
@@ -194,7 +195,9 @@ router.get('/:id/ready', async (req, res) => {
 
 // ============= Match =============
 
-router.get('/:id/match', (req, res) => {
+router.get('/:id/match',  (req, res) => {
+
+
 	res.render('main/match.ejs');
 
 });
@@ -267,7 +270,8 @@ router.put('/main/:id', async (req, res) => {
 				res.render('main/match.ejs', {
 					you: profile.name, 
 					match: temp.name, 
-					dates: possibleDates
+					dates: possibleDates, 
+					user: profile
 				});
 
 			} else {

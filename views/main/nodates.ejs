@@ -4,15 +4,15 @@
 
 	<img class="radar" src="/images/radar-green.png" alt="radar.png">
 	<p>
-		<h3>No one you might like for now in your radar...</h3>
+		<h3>No one is available right now...</h3>
 	</p>
 	<p></p>
-	<h4>come back later</h4>
+	<h4>Try again later?</h4>
 	<p> <h3>or...</h3> </p>
 
 
-	<button  class= "btn btn-primary btn-lg" aria-pressed="false" name="button" onclick="window.location.href='/user/<%= user._id%>/looking'">Edit your preferences</button><br>
-
+	<button  class= "btn btn-primary btn-lg" aria-pressed="false" name="button" onclick="window.location.href='/user/<%= user._id%>/looking'">Edit your preferences</button> 
+	<button  id="dif" class= "btn btn-secondary btn-lg" aria-pressed="false" name="button" onclick="window.location.href='/user/<%= user._id%>/my-matches'">View my matches</button>
 
 
 
