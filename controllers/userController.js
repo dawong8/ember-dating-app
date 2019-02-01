@@ -3,7 +3,7 @@ const router  = express.Router();
 const Users = require('../models/users');
 const Dates = require('../models/dates');
 
-// var multer  = require('multer');
+
 // var upload = multer({ dest: 'uploads/' });
 
 
@@ -53,8 +53,12 @@ router.get('/:id/profile', async (req, res) => {
 router.put('/:id', async (req, res) => {
 	try {
 		const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body, {new:true});
+		const profile = await Users.findById(req.params.id);
 
+		
 		res.redirect(`/user/${req.params.id}/preferences`);
+
+
 	} catch (err) {
 		res.send(err);
 	}

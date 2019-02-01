@@ -27,6 +27,12 @@ body {
   text-align: center;
 }
 
+.cover {
+  background: url('/images/cover.jpg');
+  background-size: cover;
+}
+
+
 .title{
   color: white;
 }

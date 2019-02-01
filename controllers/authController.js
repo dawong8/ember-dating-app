@@ -4,6 +4,8 @@ const Users = require('../models/users');
 const bcrypt  = require('bcryptjs');
 
 
+
+
 router.get('/login', (req, res) => {
 	res.render('users/login.ejs', {
 		message: req.session.message
@@ -31,6 +33,7 @@ router.post('/', async (req, res) => {
 
 	    req.session.username = createdUser.username;
 	    req.session.logged   = true;
+
 
 	    res.redirect(`/user/${createdUser.id}/profile`);
 
