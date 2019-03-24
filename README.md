@@ -36,8 +36,7 @@ Clone the repo and install the following NPM packages:
 * Small DB, not enough users, low chance of matching
 * Age preference isn't working properly 
 
-### User Stories
-### Users Stories
+## User Stories
 
 **Starting Screen:**
 
