@@ -3,11 +3,11 @@
 
 
 ## About
-Ember is a dating app that matches not only users with the same profile preferences, but also matches dates preferences in order to make real life dating more easy.
+This is our recreation of the popular app, Tinder, with an additional feature of suggesting date ideas and venues. Ember is a dating app that matches not only users with the same profile preferences, but also matches dates preferences in order to make real life dating more easy. This is a server rendered app using Express.js. 
 
 ### Technologies Used
 
-* **Node.js**
+* **Node.js, Express.js**
 * **MongoDB / Mongoose**
 * **Javascript**
 * **Embedded Javascript**
