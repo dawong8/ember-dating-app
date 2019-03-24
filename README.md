@@ -19,27 +19,11 @@ This is our recreation of the popular app, Tinder, with an additional feature of
 
 Clone the repo and install the following NPM packages:
 
-```npm install node```
+```npm install node express body-parser method-override mongodb mongoose express-sessions bcrypt ejs```
 
-```npm install express```
-
-```npm install body-parser```
-
-```npm install method-override```
-
-```npm install mongodb```
-
-```npm install mongoose```
-
-```npm install express-sessions```
-
-```npm install bcrypt```
-
-```npm install  ejs```
 
 ### Features
-* User register
-* User login
+* User register/login
 * User's profile setup
 * User's preferences definition
 * User's prefered dates definition
@@ -47,6 +31,10 @@ Clone the repo and install the following NPM packages:
 * No one near matching your preferences
 * Match Screen
 * View all matches
+
+### Drawbacks & Issues/Bugs 
+* Small DB, not enough users, low chance of matching
+* Age preference isn't working properly 
 
 ### User Stories
 ### Users Stories
